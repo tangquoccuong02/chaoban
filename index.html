@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -103,10 +104,6 @@ audio {
 
 <body>
 
-<audio id="bgMusic" loop>
-    <source src="nhactinhyeu.mp3" type="audio/mpeg">
-</audio>
-
 <div class="sticker" style="top:8%;left:10%;">💖</div>
 <div class="sticker" style="top:15%;right:12%;">🌸</div>
 <div class="sticker" style="bottom:12%;left:14%;">🐰</div>
@@ -128,12 +125,6 @@ audio {
 <script>
 let answers = [];
 
-function playBgMusic() {
-    const music = document.getElementById("bgMusic");
-    music.volume = 0.7;
-    music.play().catch(() => {});
-}
-
 function runAway() {
     const btn = document.getElementById("xBtn");
     const x = Math.random() * (window.innerWidth - 80);
@@ -150,8 +141,6 @@ function saveAnswer(question, answer) {
 }
 
 function start() {
-    playBgMusic();
-
     document.getElementById("card").innerHTML = `
         <h1>Cho mình hỏi vui xíu nha 😆</h1>
         <p>Ngân thích làm gì nhất lúc rảnh?</p>
@@ -166,13 +155,36 @@ function start() {
 function musicQuestion() {
     document.getElementById("card").innerHTML = `
         <h1>🎵 Gu nhạc của Ngân là gì?</h1>
-        <p>Nhạc đang phát rồi đó nha 🌸</p>
+        <p>Chọn thử một phong cách đi nè 🌸</p>
 
-        <button class="btn" onclick="saveAnswer('Gu nhạc','Nhạc chill 🌸'); movieQuestion()">🌸 Nhạc chill</button>
-        <button class="btn" onclick="saveAnswer('Gu nhạc','Nhạc buồn 🥺'); movieQuestion()">🥺 Nhạc buồn</button>
-        <button class="btn" onclick="saveAnswer('Gu nhạc','Nhạc remix 🔥'); movieQuestion()">🔥 Nhạc remix</button>
-        <button class="btn" onclick="saveAnswer('Gu nhạc','Nhạc tình yêu 💖'); movieQuestion()">💖 Nhạc tình yêu</button>
+        <button class="btn" onclick="playMusic('Nhạc chill 🌸', 'nhactinhyeu.mp3')">🌸 Nhạc chill</button>
+        <button class="btn" onclick="playMusic('Nhạc buồn 🥺', 'nhactinhyeu.mp3')">🥺 Nhạc buồn</button>
+        <button class="btn" onclick="playMusic('Nhạc remix 🔥', 'nhactinhyeu.mp3')">🔥 Nhạc remix</button>
+        <button class="btn" onclick="playMusic('Nhạc tình yêu 💖', 'nhactinhyeu.mp3')">💖 Nhạc tình yêu</button>
     `;
+}
+
+function playMusic(style, fileName) {
+    saveAnswer('Gu nhạc', style);
+
+    document.getElementById("card").innerHTML = `
+        <h1>${style}</h1>
+        <p>Đây là bài mình chọn thử cho Ngân nè 🎶✨</p>
+
+        <audio id="musicPlayer" controls autoplay>
+            <source src="${fileName}" type="audio/mpeg">
+        </audio>
+
+        <p style="font-size:14px;color:#666;">
+            Nếu nhạc chưa phát thì bấm nút Play nha 😆
+        </p>
+
+        <button class="btn" onclick="movieQuestion()">Nghe xong rồi nè 🌷</button>
+    `;
+
+    const player = document.getElementById("musicPlayer");
+    player.volume = 0.8;
+    player.play().catch(() => {});
 }
 
 function movieQuestion() {
@@ -241,3 +253,4 @@ function result() {
 
 </body>
 </html>
+```
